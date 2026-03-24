@@ -1,0 +1,51 @@
+{
+  "name": "media-hub",
+  "version": "1.0.0",
+  "description": "Spotify + YouTube desktop client",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"wait-on http://localhost:5174 && cross-env NODE_ENV=development electron .\"",
+    "build": "vite build && electron-builder",
+    "preview": "vite preview",
+    "electron": "cross-env NODE_ENV=development electron ."
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.0.0",
+    "cross-env": "^7.0.3",
+    "electron": "^35.0.0",
+    "electron-builder": "^25.0.0",
+    "vite": "^8.0.0",
+    "wait-on": "^8.0.0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.94.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.13.1",
+    "zustand": "^5.0.12"
+  },
+  "build": {
+    "appId": "com.mediahub.app",
+    "productName": "MediaHub",
+    "directories": {
+      "output": "release"
+    },
+    "protocols": [
+      {
+        "name": "MediaHub",
+        "schemes": [
+          "mediahub"
+        ]
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "public/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
