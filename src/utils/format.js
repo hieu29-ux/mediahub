@@ -1,4 +1,4 @@
-// ─── Time ─────────────────────────────────────────────────────────
+// Time
 /**
  * 213000 ms  →  "3:33"
  * 3661000 ms →  "1:01:01"
@@ -29,7 +29,7 @@ export function formatRelativeTime(date) {
   return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 }
 
-// ─── Numbers ──────────────────────────────────────────────────────
+// Numbers
 /**
  * 1234567 → "1.2M"   |   980000 → "980K"
  */
@@ -45,7 +45,7 @@ export function formatPercent(ratio, decimals = 0) {
   return `${(ratio * 100).toFixed(decimals)}%`
 }
 
-// ─── Strings ──────────────────────────────────────────────────────
+// Strings
 /** "hello world" → "Hello World" */
 export function toTitleCase(str) {
   if (!str) return ''

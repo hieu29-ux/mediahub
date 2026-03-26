@@ -21,7 +21,7 @@ async function syncToAuthStore(service, tokens) {
   }
 }
 
-// ─── Spotify ──────────────────────────────────────────────────────
+// Spotify
 export const spotifyTokenManager = {
   async getValid() {
     const { accessToken, refreshToken, expiresAt } = tokenStorage.getSpotify()
@@ -82,7 +82,7 @@ export const spotifyTokenManager = {
   },
 }
 
-// ─── YouTube ──────────────────────────────────────────────────────
+// YouTube
 export const youtubeTokenManager = {
   async getValid() {
     const { accessToken, refreshToken, expiresAt } = tokenStorage.getYouTube()

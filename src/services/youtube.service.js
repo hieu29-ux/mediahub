@@ -1,7 +1,7 @@
 import { youtubeHttp } from './http'
 
 export const youtubeService = {
-  // ─── Public (chỉ cần API Key) ─────────────────────────────────
+  // Public (chỉ cần API Key)
   getTrending: (regionCode = 'VN', limit = 24) =>
     youtubeHttp.get('videos', {
       part:       'snippet,contentDetails,statistics',
@@ -55,7 +55,7 @@ export const youtubeService = {
       pageToken:  pageToken || undefined,
     }),
 
-  // ─── Private (cần OAuth login) ────────────────────────────────
+  // Private (cần OAuth login)
   getSubscriptions: (limit = 50, pageToken = '') =>
     youtubeHttp.getAuth('subscriptions', {
       part:       'snippet,contentDetails',
@@ -89,7 +89,7 @@ export const youtubeService = {
   rateVideo: (videoId, rating) =>   // rating: 'like' | 'dislike' | 'none'
     youtubeHttp.post(`videos/rate?id=${videoId}&rating=${rating}`),
 
-  // ─── Parse ISO 8601 duration (PT3M24S → ms) ──────────────────
+  // Parse ISO 8601 duration (PT3M24S → ms)
   parseDuration(iso) {
     const match = iso?.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/)
     if (!match) return 0
@@ -97,7 +97,7 @@ export const youtubeService = {
     return (Number(h) * 3600 + Number(m) * 60 + Number(s)) * 1000
   },
 
-  // ─── Best thumbnail ───────────────────────────────────────────
+  // Best thumbnail
   getBestThumbnail(thumbnails) {
     return (
       thumbnails?.maxres?.url ||

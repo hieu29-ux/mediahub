@@ -1,6 +1,6 @@
 import { usePlayer } from '../hooks/usePlayer'
-import { formatDuration } from '../utils/format'
 import { youtubeService } from '../services/youtube.service'
+import { formatDuration } from '../utils/format'
 
 export function MiniPlayerBar() {
   const {
@@ -14,7 +14,7 @@ export function MiniPlayerBar() {
   const isSpotify = currentSource === 'spotify'
   const isYouTube = currentSource === 'youtube'
 
-  // ── Track info ──────────────────────────────────────────────────
+  // Track info
   let title = 'Nothing playing'
   let subtitle = ''
   let imageUrl = null
@@ -29,7 +29,7 @@ export function MiniPlayerBar() {
     imageUrl = youtubeService.getBestThumbnail(currentTrack.snippet?.thumbnails)
   }
 
-  // ── Seek click ──────────────────────────────────────────────────
+  // Seek click
   const handleSeek = (e) => {
     const rect = e.currentTarget.getBoundingClientRect()
     const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
@@ -121,7 +121,7 @@ export function MiniPlayerBar() {
   )
 }
 
-// ── SVG icons ──────────────────────────────────────────────────────
+// SVG icons
 const PlayIcon  = () => <svg width="14" height="14" viewBox="0 0 16 16"><path d="M5 3l9 5-9 5V3z" fill="currentColor"/></svg>
 const PauseIcon = () => <svg width="14" height="14" viewBox="0 0 16 16"><rect x="4" y="3" width="3" height="10" rx="1" fill="currentColor"/><rect x="9" y="3" width="3" height="10" rx="1" fill="currentColor"/></svg>
 const PrevIcon  = () => <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M3 3v10M13 3L6 8l7 5V3z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>

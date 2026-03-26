@@ -1,13 +1,13 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
-import { youtubeService } from '../services/youtube.service'
-import { usePlayerStore } from '../store/playerStore'
-import { useAuthStore } from '../store/authStore'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { youtubeAuth } from '../services/auth.service'
+import { youtubeService } from '../services/youtube.service'
+import { useAuthStore } from '../store/authStore'
+import { usePlayerStore } from '../store/playerStore'
 import { formatCount, formatRelativeTime } from '../utils/format'
 
 const YT_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
 
-// ─── Watch history ────────────────────────────────────────────────
+// Watch history
 function saveToHistory(video) {
   try {
     const key = 'yt_watch_history'
@@ -18,7 +18,7 @@ function saveToHistory(video) {
   } catch {}
 }
 
-// ─── Saved (Watch Later) — local, không cần auth ─────────────────
+// Saved (Watch Later) — local, không cần auth
 const SAVED_KEY = 'yt_saved_videos'
 function getSavedList() {
   try { return JSON.parse(localStorage.getItem(SAVED_KEY) || '[]') } catch { return [] }
@@ -41,7 +41,7 @@ function toggleSavedLocal(video) {
   return true
 }
 
-// ─── Toast component ──────────────────────────────────────────────
+// Toast component
 function Toast({ toasts }) {
   return (
     <div className="yt-toast-stack">
@@ -76,7 +76,7 @@ function Toast({ toasts }) {
   )
 }
 
-// ─── useToast hook ────────────────────────────────────────────────
+// useToast hook
 function useToast() {
   const [toasts, setToasts] = useState([])
   const show = useCallback(({ message, type = 'info', duration = 3000, action }) => {
@@ -87,7 +87,7 @@ function useToast() {
   return { toasts, show }
 }
 
-// ─── Main component ───────────────────────────────────────────────
+// Main component
 export function YouTubeModal({ video, channel, onClose }) {
   const [view, setView]                       = useState(channel ? 'channel' : 'player')
   const [currentVideo, setCurrentVideo]       = useState(video ?? null)
@@ -120,7 +120,7 @@ export function YouTubeModal({ video, channel, onClose }) {
   // khai báo sớm — dùng trong useCallback bên dưới
   const videoId = currentVideo?.id?.videoId ?? currentVideo?.id
 
-  // ─── Load video data ────────────────────────────────────────────
+  // Load video data
   const loadVideoData = useCallback(async (vid) => {
     const videoId = vid?.id?.videoId ?? vid?.id
     if (!videoId) return
@@ -237,7 +237,7 @@ export function YouTubeModal({ video, channel, onClose }) {
     return () => window.removeEventListener('keydown', handler)
   }, [onClose])
 
-  // ─── Auth guard helper ─────────────────────────────────────────
+  // Auth guard helper
   const requireAuth = useCallback((action) => {
     if (!isAuthed) {
       showToast({
@@ -254,7 +254,7 @@ export function YouTubeModal({ video, channel, onClose }) {
     return true
   }, [isAuthed, showToast])
 
-  // ─── Like ──────────────────────────────────────────────────────
+  // Like
   const handleLike = useCallback(async () => {
     if (!requireAuth()) return
     if (liking) return
@@ -274,7 +274,7 @@ export function YouTubeModal({ video, channel, onClose }) {
     }
   }, [liked, liking, requireAuth, showToast])
 
-  // ─── Share ─────────────────────────────────────────────────────
+  // Share
   const handleShare = useCallback(async () => {
     const url = `https://youtu.be/${videoId}`
     setCopying(true)
@@ -288,7 +288,7 @@ export function YouTubeModal({ video, channel, onClose }) {
     }
   }, [videoId, showToast])
 
-  // ─── Save (local Watch Later) ──────────────────────────────────
+  // Save (local Watch Later)
   const handleSave = useCallback(() => {
     if (!requireAuth()) return
     const nowSaved = toggleSavedLocal(currentVideo)
@@ -299,14 +299,14 @@ export function YouTubeModal({ video, channel, onClose }) {
     })
   }, [currentVideo, requireAuth, showToast])
 
-  // ─── Download ──────────────────────────────────────────────────
+  // Download
   const handleDownload = useCallback(() => {
     const url = `https://cobalt.tools/#/https://youtu.be/${videoId}`
     window.open(url, '_blank', 'noopener')
     showToast({ message: 'Đang mở trình tải...', type: 'info', duration: 2000 })
   }, [videoId, showToast])
 
-  // ─── Subscribe ─────────────────────────────────────────────────
+  // Subscribe
   const handleSubscribe = useCallback(async () => {
     if (!requireAuth()) return
     if (subscribing) return
@@ -450,7 +450,7 @@ export function YouTubeModal({ video, channel, onClose }) {
                   </div>
                 )}
 
-                {/* ── Action buttons ── */}
+                {/* Action buttons */}
                 <div className="yt-action-buttons">
 
                   {/* Like */}
@@ -647,7 +647,7 @@ export function YouTubeModal({ video, channel, onClose }) {
   )
 }
 
-// ─── Sub-components ───────────────────────────────────────────────
+// Sub-components
 
 function CommentItem({ item }) {
   const c      = item.snippet?.topLevelComment?.snippet ?? {}

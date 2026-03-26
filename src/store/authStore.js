@@ -5,7 +5,7 @@ import { tokenStorage } from '../utils/storage'
 export const useAuthStore = create(
   persist(
     (set, get) => ({
-      // ─── Spotify ──────────────────────────────────────────────
+      // Spotify
       spotifyToken:   null,   // access token
       spotifyRefresh: null,   // refresh token
       spotifyExpires: 0,      // timestamp ms
@@ -32,7 +32,7 @@ export const useAuthStore = create(
         tokenStorage.clearSpotify()
       },
 
-      // ─── YouTube ──────────────────────────────────────────────
+      // YouTube
       youtubeToken:   null,
       youtubeRefresh: null,
       youtubeExpires: 0,

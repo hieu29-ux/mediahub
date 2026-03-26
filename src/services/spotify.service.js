@@ -1,18 +1,18 @@
 import { spotifyHttp } from './http'
 
 export const spotifyService = {
-  // ─── User ────────────────────────────────────────────────────
+  // User
   getMe: () =>
     spotifyHttp.get('me'),
 
-  // ─── Top items ───────────────────────────────────────────────
+  // Top items
   getTopTracks: (limit = 20, timeRange = 'long_term') =>
     spotifyHttp.get('me/top/tracks', { limit, time_range: timeRange }),
 
   getTopArtists: (limit = 20, timeRange = 'long_term') =>
     spotifyHttp.get('me/top/artists', { limit, time_range: timeRange }),
 
-  // ─── Library ─────────────────────────────────────────────────
+  // Library
   getPlaylists: (limit = 50, offset = 0) =>
     spotifyHttp.get('me/playlists', { limit, offset }),
 
@@ -25,22 +25,22 @@ export const spotifyService = {
   getSavedAlbums: (limit = 20, offset = 0) =>
     spotifyHttp.get('me/albums', { limit, offset }),
 
-  // ─── Recently played ─────────────────────────────────────────
+  // Recently played
   getRecentlyPlayed: (limit = 20) =>
     spotifyHttp.get('me/player/recently-played', { limit }),
 
-  // ─── Search ──────────────────────────────────────────────────
+  // Search
   search: (q, types = ['track', 'artist', 'album'], limit = 20) =>
     spotifyHttp.get('search', { q, type: types.join(','), limit }),
 
-  // ─── Player state ─────────────────────────────────────────────
+  // Player state
   getPlaybackState: () =>
     spotifyHttp.get('me/player'),
 
   getAvailableDevices: () =>
     spotifyHttp.get('me/player/devices'),
 
-  // ─── Playback control (cần Premium) ──────────────────────────
+  // Playback control (cần Premium)
   play: (deviceId, body = {}) =>
     spotifyHttp.put(`me/player/play${deviceId ? `?device_id=${deviceId}` : ''}`, body),
 
@@ -68,12 +68,12 @@ export const spotifyService = {
   transferPlayback: (deviceId, play = false) =>
     spotifyHttp.put('me/player', { device_ids: [deviceId], play }),
 
-  // ─── Like / Save ──────────────────────────────────────────────
+  // Like / Save
   saveTrack: (id)   => spotifyHttp.put(`me/tracks?ids=${id}`),
   unsaveTrack: (id) => spotifyHttp.delete(`me/tracks?ids=${id}`),
   checkSaved: (ids) => spotifyHttp.get('me/tracks/contains', { ids: ids.join(',') }),
 
-  // ─── Artist / Album / Track detail ───────────────────────────
+  // Artist / Album / Track detail
   getTrack:  (id) => spotifyHttp.get(`tracks/${id}`),
   getAlbum:  (id) => spotifyHttp.get(`albums/${id}`),
   getArtist: (id) => spotifyHttp.get(`artists/${id}`),

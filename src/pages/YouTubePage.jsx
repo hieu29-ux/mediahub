@@ -1,15 +1,16 @@
-import { useState, useCallback } from 'react'
-import { useUiStore } from '../store/uiStore'
+import { useQuery } from '@tanstack/react-query'
+import { useCallback, useState } from 'react'
+import { VideoCard, VideoCardSkeleton, VideoRow, VideoRowSkeleton } from '../components/VideoCard'
+import { YouTubeModal } from '../components/YouTubeModal'
 import { useAuth } from '../hooks/useAuth'
 import {
-  useTrending, useSubscriptions, useWatchLater,
-  useLikedVideos, useYouTubeSearch,
+    useSubscriptions,
+    useTrending,
+    useWatchLater,
+    useYouTubeSearch
 } from '../hooks/useYouTube'
-import { useQuery } from '@tanstack/react-query'
 import { youtubeService } from '../services/youtube.service'
-import { tokenStorage } from '../utils/storage'
-import { VideoCard, VideoRow, VideoCardSkeleton, VideoRowSkeleton } from '../components/VideoCard'
-import { YouTubeModal } from '../components/YouTubeModal'
+import { useUiStore } from '../store/uiStore'
 
 const TABS = [
   { id: 'foryou',        label: 'Dành cho bạn', auth: false },
@@ -76,7 +77,7 @@ export function YouTubePage() {
   )
 }
 
-// ─── Tab router ────────────────────────────────────────────────────
+// Tab router
 function TabContent({ tab, onVideoClick, onChannelClick, isConnected, onLogin }) {
   if (tab === 'foryou')        return <ForYouTab        onVideoClick={onVideoClick} isConnected={isConnected} onLogin={onLogin} />
   if (tab === 'trending')      return <TrendingTab      onVideoClick={onVideoClick} />
@@ -86,7 +87,7 @@ function TabContent({ tab, onVideoClick, onChannelClick, isConnected, onLogin })
   return null
 }
 
-// ─── Dành cho bạn ─────────────────────────────────────────────────
+// Dành cho bạn
 function ForYouTab({ onVideoClick, isConnected, onLogin }) {
   // Lấy lịch sử xem gần nhất từ localStorage để làm seed
   const recentTitles = (() => {
@@ -139,7 +140,7 @@ function ForYouTab({ onVideoClick, isConnected, onLogin }) {
   )
 }
 
-// ─── Trending ──────────────────────────────────────────────────────
+// Trending
 function TrendingTab({ onVideoClick }) {
   const { data, isLoading } = useTrending()
   const videos = data?.items ?? []
@@ -156,7 +157,7 @@ function TrendingTab({ onVideoClick }) {
   )
 }
 
-// ─── Subscriptions ─────────────────────────────────────────────────
+// Subscriptions
 function SubscriptionsTab({ onVideoClick, onChannelClick, isConnected, onLogin }) {
   const { data, isLoading } = useSubscriptions()
 
@@ -202,7 +203,7 @@ function SubscriptionsTab({ onVideoClick, onChannelClick, isConnected, onLogin }
   )
 }
 
-// ─── Watch Later ───────────────────────────────────────────────────
+// Watch Later
 function WatchLaterTab({ onVideoClick }) {
   const { data, isLoading } = useWatchLater()
   const items = data?.items ?? []
@@ -237,7 +238,7 @@ function WatchLaterTab({ onVideoClick }) {
   )
 }
 
-// ─── History ───────────────────────────────────────────────────────
+// History
 function HistoryTab({ onVideoClick }) {
   // Lịch sử xem lưu local khi user click video
   const history = (() => {
@@ -271,7 +272,7 @@ function HistoryTab({ onVideoClick }) {
   )
 }
 
-// ─── Search ────────────────────────────────────────────────────────
+// Search
 function SearchResults({ query, onVideoClick }) {
   const { data, isLoading } = useYouTubeSearch(query)
   const results = data?.items ?? []
@@ -288,7 +289,7 @@ function SearchResults({ query, onVideoClick }) {
   )
 }
 
-// ─── Shared ────────────────────────────────────────────────────────
+// Shared
 function ConnectPrompt({ onConnect, label }) {
   return (
     <div className="connect-prompt">

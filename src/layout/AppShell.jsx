@@ -5,10 +5,10 @@ import { useSpotifySDK } from '../player/SpotifySDK'
 import { useUiStore } from '../store/uiStore'
 import { SpotifyPage } from '../pages/SpotifyPage'
 import { YouTubePage } from '../pages/YouTubePage'
+import { SettingsModal } from '../components/SettingsModal'
 
 export function AppShell() {
   useSpotifySDK()
-
   const activeService = useUiStore((s) => s.activeService)
   const isYouTube = activeService === 'youtube'
 
@@ -20,6 +20,7 @@ export function AppShell() {
         {isYouTube ? <YouTubePage /> : <SpotifyPage />}
       </main>
       {!isYouTube && <MiniPlayerBar />}
+      <SettingsModal />
     </div>
   )
 }

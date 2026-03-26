@@ -8,7 +8,7 @@ const YOUTUBE_SECRET = import.meta.env.VITE_YOUTUBE_CLIENT_SECRET;
 // YouTube Desktop OAuth dùng localhost, không phải custom protocol
 const YOUTUBE_REDIRECT = "http://localhost:5175/callback/youtube";
 
-// ─── PKCE helpers ─────────────────────────────────────────────────
+// PKCE helpers
 function generateVerifier(length = 128) {
   const chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
@@ -51,7 +51,7 @@ function removeVerifier(key) {
   } catch {}
 }
 
-// ─── Spotify OAuth (custom protocol) ──────────────────────────────
+// Spotify OAuth (custom protocol)
 export const spotifyAuth = {
   SCOPES: [
     "user-read-private",
@@ -141,7 +141,7 @@ export const spotifyAuth = {
   },
 };
 
-// ─── YouTube OAuth (localhost callback) ───────────────────────────
+// YouTube OAuth (localhost callback)
 export const youtubeAuth = {
   SCOPES: [
     "https://www.googleapis.com/auth/youtube.readonly",

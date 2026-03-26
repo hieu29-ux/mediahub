@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 
 export const usePlayerStore = create((set, get) => ({
-  // ─── Current track ────────────────────────────────────────────
+  // Current track
   currentTrack:  null,   // SpotifyTrack | YouTubeVideo | null
   currentSource: null,   // 'spotify' | 'youtube' | null
 
-  // ─── Playback state ───────────────────────────────────────────
+  // Playback state
   isPlaying:    false,
   progressMs:   0,        // current position in ms
   durationMs:   0,        // total duration in ms
@@ -14,13 +14,13 @@ export const usePlayerStore = create((set, get) => ({
   isShuffle:    false,
   repeatMode:   'off',    // 'off' | 'track' | 'context'
 
-  // ─── Spotify-specific ─────────────────────────────────────────
+  // Spotify-specific
   deviceId:     null,     // Spotify Web Playback SDK device id
 
-  // ─── Queue (simple next-up list) ──────────────────────────────
+  // Queue (simple next-up list)
   queue:        [],
 
-  // ─── Actions ──────────────────────────────────────────────────
+  // Actions
   setCurrentTrack: (track, source) =>
     set({ currentTrack: track, currentSource: source }),
 
@@ -55,7 +55,7 @@ export const usePlayerStore = create((set, get) => ({
 
   clearQueue: () => set({ queue: [] }),
 
-  // ─── Computed helpers ─────────────────────────────────────────
+  // Computed helpers
   progressRatio: () => {
     const { progressMs, durationMs } = get()
     if (!durationMs) return 0

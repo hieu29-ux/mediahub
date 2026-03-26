@@ -44,7 +44,7 @@ export class ApiError extends Error {
   }
 }
 
-// ─── Spotify ──────────────────────────────────────────────────────
+// Spotify
 const SPOTIFY_BASE = 'https://api.spotify.com/v1'
 
 export const spotifyHttp = {
@@ -63,7 +63,7 @@ export const spotifyHttp = {
     request(`${SPOTIFY_BASE}/${endpoint}`, { method: 'DELETE' }, spotifyTokenManager.getValid.bind(spotifyTokenManager)),
 }
 
-// ─── YouTube ──────────────────────────────────────────────────────
+// YouTube
 const YOUTUBE_BASE    = 'https://www.googleapis.com/youtube/v3'
 const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
 

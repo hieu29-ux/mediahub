@@ -4,40 +4,40 @@ import { persist } from 'zustand/middleware'
 export const useUiStore = create(
   persist(
     (set) => ({
-      // ─── Service ────────────────────────────────────────────────
+      // Service
       activeService: 'spotify',   // 'spotify' | 'youtube'
       setActiveService: (s) => set({ activeService: s }),
 
-      // ─── Theme ──────────────────────────────────────────────────
+      // Theme
       theme: 'dark',              // 'dark' | 'light' | 'system'
       setTheme: (t) => {
         set({ theme: t })
         applyTheme(t)
       },
 
-      // ─── Sidebar ────────────────────────────────────────────────
+      // Sidebar
       sidebarCollapsed: false,
       toggleSidebar: () => set((s) => ({ sidebarCollapsed: !s.sidebarCollapsed })),
 
-      // ─── Modals ─────────────────────────────────────────────────
+      // Modals
       settingsOpen: false,
       openSettings:  () => set({ settingsOpen: true }),
       closeSettings: () => set({ settingsOpen: false }),
 
-      // ─── Search ─────────────────────────────────────────────────
+      // Search
       searchQuery: '',
       setSearchQuery: (q) => set({ searchQuery: q }),
       clearSearch: () => set({ searchQuery: '' }),
 
-      // ─── Spotify active tab ─────────────────────────────────────
+      // Spotify active tab
       spotifyTab: 'top',          // 'top' | 'playlists' | 'albums' | 'liked'
       setSpotifyTab: (t) => set({ spotifyTab: t }),
 
-      // ─── YouTube active tab ─────────────────────────────────────
+      // YouTube active tab
       youtubeTab: 'trending',     // 'trending' | 'subscriptions' | 'watchlater' | 'history'
       setYoutubeTab: (t) => set({ youtubeTab: t }),
 
-      // ─── Notifications (toast) ──────────────────────────────────
+      // Notifications (toast)
       toasts: [],
       addToast: (message, type = 'info') => {
         const id = Date.now()
@@ -62,7 +62,7 @@ export const useUiStore = create(
   )
 )
 
-// ─── Apply theme to <html> element ────────────────────────────────
+// Apply theme to <html> element
 export function applyTheme(theme) {
   const root = document.documentElement
   if (theme === 'system') {
@@ -75,7 +75,7 @@ export function applyTheme(theme) {
   window.electronAPI?.setNativeTheme?.(theme)
 }
 
-// ─── Init theme on load (gọi từ main.jsx) ─────────────────────────
+// Init theme on load (gọi từ main.jsx)
 export function initTheme() {
   const stored = JSON.parse(localStorage.getItem('mediahub-ui') || '{}')
   applyTheme(stored?.state?.theme || 'dark')

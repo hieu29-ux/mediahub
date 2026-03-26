@@ -1,11 +1,15 @@
 import { useState } from 'react'
-import { useUiStore } from '../store/uiStore'
+import { TrackCard, TrackCardSkeleton, TrackRow, TrackRowSkeleton } from '../components/TrackCard'
 import { useAuth } from '../hooks/useAuth'
 import {
-  useTopTracks, usePlaylists, useSavedAlbums,
-  useLikedTracks, useRecentlyPlayed, useSpotifySearch,
+    useLikedTracks,
+    usePlaylists,
+    useRecentlyPlayed,
+    useSavedAlbums,
+    useSpotifySearch,
+    useTopTracks,
 } from '../hooks/useSpotify'
-import { TrackCard, TrackRow, TrackCardSkeleton, TrackRowSkeleton } from '../components/TrackCard'
+import { useUiStore } from '../store/uiStore'
 
 const TABS = ['top', 'playlists', 'albums', 'liked']
 
@@ -187,7 +191,7 @@ function SpotifySearchResults({ query }) {
   )
 }
 
-// ── Shared UI ──────────────────────────────────────────────────────
+// Shared UI
 function ConnectPrompt({ onConnect, service }) {
   return (
     <div className="connect-prompt">

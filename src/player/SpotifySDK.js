@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
-import { usePlayerStore } from '../store/playerStore'
-import { useAuthStore } from '../store/authStore'
 import { spotifyTokenManager } from '../services/token.manager'
+import { useAuthStore } from '../store/authStore'
+import { usePlayerStore } from '../store/playerStore'
 
 /**
  * Hook: khởi tạo Spotify Web Playback SDK.
@@ -38,7 +38,7 @@ export function useSpotifySDK() {
         },
       })
 
-      // ── Ready ──────────────────────────────────────────────
+      // Ready
       player.addListener('ready', ({ device_id }) => {
         console.log('[SpotifySDK] Ready, device_id:', device_id)
         setDeviceId(device_id)
@@ -53,7 +53,7 @@ export function useSpotifySDK() {
         setDeviceId(null)
       })
 
-      // ── Playback state change ──────────────────────────────
+      // Playback state change
       player.addListener('player_state_changed', (state) => {
         if (!state) return
         setIsPlaying(!state.paused)
@@ -76,7 +76,7 @@ export function useSpotifySDK() {
         }
       })
 
-      // ── Errors ────────────────────────────────────────────
+      // Errors
       player.addListener('authentication_error', ({ message }) =>
         console.error('[SpotifySDK] Auth error:', message))
       player.addListener('account_error', ({ message }) =>

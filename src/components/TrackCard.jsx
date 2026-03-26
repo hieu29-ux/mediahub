@@ -1,6 +1,6 @@
-import { formatDuration, formatArtists } from '../utils/format'
 import { usePlayer } from '../hooks/usePlayer'
 import { usePlayerStore } from '../store/playerStore'
+import { formatArtists, formatDuration } from '../utils/format'
 
 export function TrackCard({ track, index, showIndex = false }) {
   const { playSpotifyTrack } = usePlayer()
@@ -76,7 +76,7 @@ export function TrackRow({ track, index }) {
   )
 }
 
-// ── Sub-components ─────────────────────────────────────────────────
+// Sub-components
 function PlayIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

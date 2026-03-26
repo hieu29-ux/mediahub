@@ -1,13 +1,13 @@
 import { useCallback } from 'react'
-import { usePlayerStore } from '../store/playerStore'
 import { spotifyService } from '../services/spotify.service'
+import { usePlayerStore } from '../store/playerStore'
 import { useUiStore } from '../store/uiStore'
 
 export function usePlayer() {
   const store    = usePlayerStore()
   const addToast = useUiStore((s) => s.addToast)
 
-  // ── Spotify controls ───────────────────────────────────────────
+  // Spotify controls
   const playSpotifyTrack = useCallback(async (track) => {
     try {
       store.setCurrentTrack(track, 'spotify')
@@ -97,7 +97,7 @@ export function usePlayer() {
     }
   }, [store.repeatMode, store.currentSource, store.deviceId])
 
-  // ── YouTube play ───────────────────────────────────────────────
+  // YouTube play
   const playYouTubeVideo = useCallback((video) => {
     store.setCurrentTrack(video, 'youtube')
     store.setIsPlaying(true)

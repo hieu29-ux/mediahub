@@ -46,7 +46,7 @@ export const storage = {
   },
 }
 
-// ─── Token helpers (dùng riêng cho OAuth) ─────────────────────────
+// Token helpers (dùng riêng cho OAuth)
 export const tokenStorage = {
   setSpotify({ accessToken, refreshToken, expiresAt }) {
     storage.set('sp_access',  accessToken)
